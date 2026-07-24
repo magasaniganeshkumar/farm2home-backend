@@ -4,6 +4,11 @@ from django.db import models
 from apps.core.models import BaseModel
 from .managers import UserManager
 
+import secrets
+from datetime import timedelta
+
+from django.utils import timezone
+
 
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     """
@@ -68,3 +73,38 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}".strip()
+
+
+class PasswordResetToken(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="password_reset_tokens",
+    )
+    token = models.CharField(
+        max_length=128,
+        unique=True,
+    )
+    expires_at = models.DateTimeField()
+    is_used = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    @classmethod
+    def create_token(cls, user):
+        return cls.objects.create(
+            user=user,
+            token=secrets.token_urlsafe(48),
+            expires_at=timezone.now() + timedelta(hours=1),
+        )
+
+    def is_valid(self):
+        return (
+            not self.is_used
+            and timezone.now() < self.expires_at
+        )
+
+    def __str__(self):
+        return f"{self.user.email} - Password Reset"
