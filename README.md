@@ -1,41 +1,54 @@
 # 🌱 Farm2Home Backend
 
-A production-ready Django REST Framework backend for the Farm2Home platform.
-
-## 📌 Project Overview
-
-Farm2Home is an agricultural e-commerce platform that connects farmers directly with customers.
-
-The backend is being built using enterprise software engineering practices with Django, Django REST Framework, Docker, and AWS.
+A production-ready Django REST Framework backend powering the Farm2Home platform.
 
 ---
 
-## 🚀 Tech Stack
+# 📌 Project Overview
 
-### Backend
-- Python
-- Django
+Farm2Home is an agricultural e-commerce and supply chain platform that connects farmers directly with customers while enabling Farm2Home to manage procurement, warehouses, inventory, and deliveries.
+
+The backend is being built using enterprise software engineering practices with Django, Django REST Framework, Docker, and AWS Cloud.
+
+---
+
+# 🚀 Tech Stack
+
+## Backend
+
+- Python 3.14
+- Django 6
 - Django REST Framework
 
-### Database
+## Database
+
 - SQLite (Development)
 - Amazon RDS MySQL (Production)
 
-### Authentication
+## Authentication
+
 - Custom User Model
-- JWT Authentication (Upcoming)
+- JWT Authentication
+- Refresh Token Rotation
+- Token Blacklisting
+- Password Reset
+- Change Password
 
-### API Documentation
-- Swagger (drf-spectacular)
+## API Documentation
 
-### Cloud (Upcoming)
+- Swagger UI (drf-spectacular)
+- OpenAPI Schema
+
+## Cloud (Upcoming)
+
 - AWS ECS
 - Amazon RDS
 - Amazon S3
 - Amazon ECR
 - CloudWatch
 
-### DevOps (Upcoming)
+## DevOps (Upcoming)
+
 - Docker
 - Docker Compose
 - GitHub Actions
@@ -44,7 +57,7 @@ The backend is being built using enterprise software engineering practices with 
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
 ```text
 farm2home-backend/
@@ -52,6 +65,7 @@ farm2home-backend/
 ├── apps/
 │   ├── accounts/
 │   ├── core/
+│   ├── locations/
 │
 ├── config/
 ├── docs/
@@ -66,71 +80,153 @@ farm2home-backend/
 
 ---
 
-## ✅ Completed Features
+# ✅ Completed Modules
 
-- Project setup
-- Environment-based settings
-- Custom User Model
-- UUID Primary Keys
+## Core
+
+- Environment-based Settings
 - BaseModel
+- UUID Primary Keys
 - Soft Delete
-- User Registration API
-- Swagger Documentation
+- Custom Managers
 
 ---
 
-## 🚧 Upcoming Features
+## Authentication
 
-- JWT Authentication
-- Products Module
+- Custom User Model
+- User Registration
+- JWT Login
+- User Profile
+- Logout
+- Change Password
+- Forgot Password
+- Reset Password
+- Refresh Token
+- Token Blacklisting
+
+---
+
+## Location Management
+
+- Customer Address Management
+- Create Address
+- List Addresses
+- Retrieve Address
+- Update Address
+- Soft Delete Address
+- Default Address Support
+- JWT Protected APIs
+
+---
+
+# 🚧 Upcoming Modules
+
+## Sprint 3
+
+- Farmer Management
+- Farm Management
+
+## Sprint 4
+
+- Crop Management
+- Dairy Management
+- Livestock Management
+
+## Sprint 5
+
+- Procurement
+- Warehouse Management
+- Inventory Management
+
+## Sprint 6
+
+- Product Catalog
 - Categories
-- Cart
-- Orders
+- Product Images
+
+## Sprint 7
+
+- Shopping Cart
+- Wishlist
+- Customer Orders
+
+## Sprint 8
+
 - Payments
+- Delivery Management
 - Notifications
-- Email Verification
-- Docker Deployment
-- AWS Deployment
-- CI/CD Pipeline
-- Analytics Integration
+
+## Sprint 9
+
+- Analytics
+- Reports
+- Admin Dashboard
 
 ---
 
-## 🛠️ Local Setup
+# 🔐 Authentication APIs
 
-Clone the repository:
+| Method | Endpoint |
+|---------|----------|
+| POST | `/api/v1/accounts/register/` |
+| POST | `/api/v1/accounts/login/` |
+| POST | `/api/v1/accounts/logout/` |
+| POST | `/api/v1/accounts/token/refresh/` |
+| GET | `/api/v1/accounts/me/` |
+| POST | `/api/v1/accounts/change-password/` |
+| POST | `/api/v1/accounts/forgot-password/` |
+| POST | `/api/v1/accounts/reset-password/` |
+
+---
+
+# 📍 Location APIs
+
+| Method | Endpoint |
+|---------|----------|
+| GET | `/api/v1/locations/` |
+| POST | `/api/v1/locations/` |
+| GET | `/api/v1/locations/{id}/` |
+| PATCH | `/api/v1/locations/{id}/` |
+| DELETE | `/api/v1/locations/{id}/` |
+
+---
+
+# 🛠️ Local Development
+
+Clone the repository
 
 ```bash
 git clone <repository-url>
 ```
 
-Create a virtual environment:
+Create virtual environment
 
 ```bash
 python -m venv venv
 ```
 
-Activate it:
+Activate
 
-Windows:
+### Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-Install dependencies:
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Run migrations:
+Run migrations
 
 ```bash
 python manage.py migrate
 ```
 
-Run the server:
+Run development server
 
 ```bash
 python manage.py runserver
@@ -138,22 +234,46 @@ python manage.py runserver
 
 ---
 
-## 📖 API Documentation
+# 📖 API Documentation
 
-Swagger:
-
-```
-/api/docs/
-```
-
-OpenAPI Schema:
+Swagger UI
 
 ```
-/api/schema/
+http://127.0.0.1:8000/api/docs/
+```
+
+OpenAPI Schema
+
+```
+http://127.0.0.1:8000/api/schema/
 ```
 
 ---
 
-## 👨‍💻 Author
+# 📌 Current Project Status
 
-Ganesh Reddy
+| Module | Status |
+|---------|--------|
+| Core | ✅ Completed |
+| Authentication | ✅ Completed |
+| Location | ✅ Completed |
+| Farmer | 🚧 In Progress |
+| Farm | ⏳ Planned |
+| Products | ⏳ Planned |
+| Warehouse | ⏳ Planned |
+| Orders | ⏳ Planned |
+| Payments | ⏳ Planned |
+
+---
+
+# 👨‍💻 Author
+
+**Ganesh Reddy**
+
+Backend Developer | Python | Django | AWS | Data Engineering
+
+---
+
+# 📄 License
+
+This project is being developed as the backend for the Farm2Home platform.
