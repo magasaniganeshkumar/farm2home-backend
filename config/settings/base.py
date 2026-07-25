@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # Local Apps
     "apps.core",
     "apps.accounts",
+    "apps.locations",
 ]
 
 # Middleware

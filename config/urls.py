@@ -27,5 +27,9 @@ urlpatterns = [
     path(
         "api/v1/accounts/",
         include("apps.accounts.urls"),
+    ),  
+    path(
+        "api/v1/locations/",
+        include("apps.locations.urls"),
     ),
 ]
