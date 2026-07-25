@@ -39,7 +39,7 @@ class UserRegistrationView(generics.CreateAPIView):
                     "first_name": self.user.first_name,
                     "last_name": self.user.last_name,
                     "phone_number": self.user.phone_number,
-                    "role": self.user.role,
+                    "user_type": self.user.user_type,
                 },
             },
             status=status.HTTP_201_CREATED,

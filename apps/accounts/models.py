@@ -1,13 +1,12 @@
+from datetime import timedelta
+import secrets
+
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from django.utils import timezone
 
 from apps.core.models import BaseModel
 from .managers import UserManager
-
-import secrets
-from datetime import timedelta
-
-from django.utils import timezone
 
 
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
@@ -15,10 +14,10 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     Custom User Model
     """
 
-    class Roles(models.TextChoices):
-        ADMIN = "ADMIN", "Admin"
-        FARMER = "FARMER", "Farmer"
+    class UserType(models.TextChoices):
         CUSTOMER = "CUSTOMER", "Customer"
+        EMPLOYEE = "EMPLOYEE", "Employee"
+        ADMIN = "ADMIN", "Admin"
 
     email = models.EmailField(
         unique=True,
@@ -38,10 +37,10 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
         blank=True,
     )
 
-    role = models.CharField(
+    user_type = models.CharField(
         max_length=20,
-        choices=Roles.choices,
-        default=Roles.CUSTOMER,
+        choices=UserType.choices,
+        default=UserType.CUSTOMER,
     )
 
     is_active = models.BooleanField(
@@ -72,22 +71,36 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
 
     @property
     def full_name(self):
-        return f"{self.first_name} {self.last_name}".strip()
+        return " ".join(
+            part for part in [self.first_name, self.last_name] if part
+        )
 
 
 class PasswordResetToken(models.Model):
+    """
+    Password Reset Token
+    """
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="password_reset_tokens",
     )
+
     token = models.CharField(
         max_length=128,
         unique=True,
     )
+
     expires_at = models.DateTimeField()
-    is_used = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+
+    is_used = models.BooleanField(
+        default=False,
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
 
     class Meta:
         ordering = ["-created_at"]

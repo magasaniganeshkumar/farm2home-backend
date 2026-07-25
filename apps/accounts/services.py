@@ -12,7 +12,11 @@ class UserService:
     def create_user(validated_data):
         password = validated_data.pop("password")
 
-        user = User(**validated_data)
+        user = User(
+            **validated_data,
+            user_type=User.UserType.CUSTOMER,
+        )
+
         user.set_password(password)
         user.save()
 

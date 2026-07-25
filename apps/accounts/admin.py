@@ -12,14 +12,14 @@ class UserAdmin(DjangoUserAdmin):
         "email",
         "first_name",
         "last_name",
-        "role",
+        "user_type",
         "is_active",
         "is_staff",
         "is_verified",
     )
 
     list_filter = (
-        "role",
+        "user_type",
         "is_active",
         "is_staff",
         "is_superuser",
@@ -53,10 +53,10 @@ class UserAdmin(DjangoUserAdmin):
             },
         ),
         (
-            "Role",
+            "User Type",
             {
                 "fields": (
-                    "role",
+                    "user_type",
                     "is_verified",
                 )
             },
@@ -95,7 +95,7 @@ class UserAdmin(DjangoUserAdmin):
                     "first_name",
                     "last_name",
                     "phone_number",
-                    "role",
+                    "user_type",
                     "password1",
                     "password2",
                     "is_staff",

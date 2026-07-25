@@ -34,7 +34,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "phone_number",
-            "role",
             "password",
             "confirm_password",
         )
@@ -65,7 +64,7 @@ class UserLoginSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
 
         token["email"] = user.email
-        token["role"] = user.role
+        token["user_type"] = user.user_type
 
         return token
 
@@ -79,7 +78,7 @@ class UserLoginSerializer(TokenObtainPairSerializer):
             "first_name": self.user.first_name,
             "last_name": self.user.last_name,
             "phone_number": self.user.phone_number,
-            "role": self.user.role,
+            "user_type": self.user.user_type,
         }
 
         return data
@@ -100,7 +99,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "last_name",
             "full_name",
             "phone_number",
-            "role",
+            "user_type",
             "is_verified",
         )
         read_only_fields = fields
@@ -208,6 +207,7 @@ class ForgotPasswordSerializer(serializers.Serializer):
         )
 
         return reset_token
+
 
 class ResetPasswordSerializer(serializers.Serializer):
     token = serializers.CharField()
