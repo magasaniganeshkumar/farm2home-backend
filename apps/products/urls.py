@@ -3,6 +3,7 @@ from django.urls import path
 from apps.products.views import (
     CategoryDetailView,
     CategoryListView,
+    MarketplaceProductDetailView,
     MarketplaceProductListView,
     ProductDetailView,
     ProductListView,
@@ -35,7 +36,7 @@ urlpatterns = [
         name="product-detail",
     ),
 
-    # Supplier Listings
+    # Supplier Products
     path(
         "supplier/products/",
         SupplierProductListCreateView.as_view(),
@@ -52,5 +53,10 @@ urlpatterns = [
         "marketplace/products/",
         MarketplaceProductListView.as_view(),
         name="marketplace-product-list",
+    ),
+    path(
+        "marketplace/products/<uuid:pk>/",
+        MarketplaceProductDetailView.as_view(),
+        name="marketplace-product-detail",
     ),
 ]

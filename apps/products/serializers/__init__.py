@@ -2,12 +2,14 @@ from .category import (
     CategoryDetailSerializer,
     CategoryListSerializer,
 )
+
 from .product import (
-    ProductListSerializer,
     ProductDetailSerializer,
+    ProductListSerializer,
 )
 
 from .marketplace import (
+    MarketplaceProductDetailSerializer,
     MarketplaceProductListSerializer,
 )
 
@@ -28,4 +30,5 @@ __all__ = [
     "SupplierProductListSerializer",
     "SupplierProductDetailSerializer",
     "MarketplaceProductListSerializer",
+    "MarketplaceProductDetailSerializer",
 ]

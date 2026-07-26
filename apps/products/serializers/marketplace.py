@@ -36,3 +36,46 @@ class MarketplaceProductListSerializer(serializers.ModelSerializer):
             "grade",
             "status",
         )
+
+
+class MarketplaceProductDetailSerializer(serializers.ModelSerializer):
+    product_name = serializers.CharField(
+        source="product.name",
+        read_only=True,
+    )
+
+    category_name = serializers.CharField(
+        source="product.category.name",
+        read_only=True,
+    )
+
+    farmer_name = serializers.CharField(
+        source="farmer.user.full_name",
+        read_only=True,
+    )
+
+    class Meta:
+        model = SupplierProduct
+        fields = (
+            "id",
+            "listing_code",
+            "product_name",
+            "category_name",
+            "farmer_name",
+            "selling_price",
+            "discount_price",
+            "available_quantity",
+            "minimum_order_quantity",
+            "estimated_delivery_days",
+            "pickup_available",
+            "home_delivery",
+            "is_organic",
+            "is_certified",
+            "grade",
+            "description",
+            "notes",
+            "harvest_date",
+            "available_from",
+            "available_until",
+            "status",
+        )

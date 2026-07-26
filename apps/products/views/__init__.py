@@ -9,6 +9,7 @@ from .product import (
 )
 
 from .marketplace import (
+    MarketplaceProductDetailView,
     MarketplaceProductListView,
 )
 
@@ -22,7 +23,8 @@ __all__ = [
     "CategoryDetailView",
     "ProductListView",
     "ProductDetailView",
+    "MarketplaceProductListView",
+    "MarketplaceProductDetailView",
     "SupplierProductListCreateView",
     "SupplierProductDetailView",
-    "MarketplaceProductListView",
 ]
