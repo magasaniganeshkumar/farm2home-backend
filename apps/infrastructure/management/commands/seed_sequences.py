@@ -10,6 +10,7 @@ class Command(BaseCommand):
         ("CATEGORY", "CAT"),
         ("PRODUCT", "PRD"),
         ("SUPPLIER", "SUP"),
+        ("LISTING", "LST"),
         ("LOCATION", "LOC"),
         ("ORDER", "ORD"),
         ("PAYMENT", "PAY"),

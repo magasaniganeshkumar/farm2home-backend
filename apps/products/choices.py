@@ -24,6 +24,16 @@ class ProductType(models.TextChoices):
     OTHER = "OTHER", "Other"
 
 
+class ProductGrade(models.TextChoices):
+    """
+    Quality grade of the product.
+    """
+
+    PREMIUM = "PREMIUM", "Premium"
+    A = "A", "Grade A"
+    B = "B", "Grade B"
+    C = "C", "Grade C"
+
 class ProductUnit(models.TextChoices):
     """
     Default selling unit.

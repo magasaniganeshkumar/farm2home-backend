@@ -12,6 +12,8 @@ class BusinessSequence(BaseModel):
         CATEGORY = "CATEGORY", "Category"
         PRODUCT = "PRODUCT", "Product"
         SUPPLIER = "SUPPLIER", "Supplier"
+        LISTING = "LISTING", "Listing"
+        LOCATION = "LOCATION", "Location"
         ORDER = "ORDER", "Order"
         PAYMENT = "PAYMENT", "Payment"
 

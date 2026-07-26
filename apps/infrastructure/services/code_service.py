@@ -44,6 +44,12 @@ class CodeService:
         )
 
     @staticmethod
+    def next_listing_code():
+        return CodeService.next(
+            BusinessSequence.Entity.LISTING
+        )
+
+    @staticmethod
     def next_payment_code():
         return CodeService.next(
             BusinessSequence.Entity.PAYMENT

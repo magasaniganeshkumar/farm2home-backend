@@ -41,5 +41,9 @@ urlpatterns = [
         "api/v1/admin/",
         include("apps.farmers.admin_urls"),
     ),
+    path(
+        "api/v1/",
+        include("apps.products.urls"),
+    ),
 
 ]
