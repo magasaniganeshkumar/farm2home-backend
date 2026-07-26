@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "apps.accounts",
     "apps.locations",
     "apps.farmers",
+    
 ]
 
 # Middleware

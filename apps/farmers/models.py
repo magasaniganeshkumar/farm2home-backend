@@ -12,10 +12,19 @@ class FarmerStatus(models.TextChoices):
 
 class FarmingType(models.TextChoices):
     CROPS = "CROPS", "Crops"
+    VEGETABLES = "VEGETABLES", "Vegetables"
+    FRUITS = "FRUITS", "Fruits"
+    ORGANIC = "ORGANIC", "Organic Farming"
     DAIRY = "DAIRY", "Dairy"
     POULTRY = "POULTRY", "Poultry"
     FISHERIES = "FISHERIES", "Fisheries"
+    HONEY = "HONEY", "Honey & Beekeeping"
+    FLOWERS = "FLOWERS", "Flowers"
+    SPICES = "SPICES", "Spices"
+    HERBS = "HERBS", "Herbs"
+    PLANT_NURSERY = "PLANT_NURSERY", "Plant Nursery"
     MIXED = "MIXED", "Mixed Farming"
+    OTHER = "OTHER", "Other"
 
 
 class PaymentMethod(models.TextChoices):
@@ -46,6 +55,10 @@ class Farmer(BaseModel):
     farming_type = models.CharField(
         max_length=20,
         choices=FarmingType.choices,
+    )
+    other_farming_type = models.CharField(
+        max_length=100,
+        blank=True,
     )
 
     experience_years = models.PositiveIntegerField(

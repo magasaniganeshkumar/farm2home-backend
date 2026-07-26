@@ -36,4 +36,10 @@ urlpatterns = [
         "api/v1/farmers/",
         include("apps.farmers.urls"),
     ),
+
+    path(
+        "api/v1/admin/",
+        include("apps.farmers.admin_urls"),
+    ),
+
 ]

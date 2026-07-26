@@ -1,64 +1,84 @@
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from .models import Farmer
 
-User = get_user_model()
 
-
-class FarmerCreateSerializer(serializers.ModelSerializer):
+class SupplierApplicationSerializer(serializers.ModelSerializer):
     """
-    Create Farmer Profile
+    Customer applies to become a supplier.
     """
 
-    user = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.filter(
-            user_type=User.UserType.CUSTOMER
+    class Meta:
+        model = Farmer
+        fields = (
+            "farming_type",
+            "other_farming_type",
+            "experience_years",
+            "preferred_language",
+            "alternate_phone_number",
+            "preferred_payment_method",
         )
+
+
+def validate(self, attrs):
+    protected = self.PROTECTED_FIELDS.intersection(
+        self.initial_data.keys()
     )
 
-    class Meta:
-        model = Farmer
-        fields = (
-            "id",
-            "user",
-            "farming_type",
-            "experience_years",
-            "preferred_language",
-            "alternate_phone_number",
-            "preferred_payment_method",
-        )
-        read_only_fields = (
-            "id",
+    if protected:
+        raise serializers.ValidationError(
+            {
+                field: "This field cannot be updated."
+                for field in protected
+            }
         )
 
-    def validate_user(self, value):
-        if Farmer.objects.filter(user=value).exists():
-            raise serializers.ValidationError(
-                "This user already has a farmer profile."
-            )
-        return value
-
-
+    return attrs
 class FarmerUpdateSerializer(serializers.ModelSerializer):
     """
-    Update Farmer Profile
+    Update Supplier Profile
     """
+
+    PROTECTED_FIELDS = {
+        "verification_status",
+        "verified_at",
+        "farmer_code",
+        "user",
+        "is_active",
+        "created_at",
+        "updated_at",
+    }
 
     class Meta:
         model = Farmer
         fields = (
             "farming_type",
+            "other_farming_type",
             "experience_years",
             "preferred_language",
             "alternate_phone_number",
             "preferred_payment_method",
         )
+
+    def validate(self, attrs):
+        protected = self.PROTECTED_FIELDS.intersection(
+            self.initial_data.keys()
+        )
+
+        if protected:
+            raise serializers.ValidationError(
+                {
+                    field: ["This field cannot be updated."]
+                    for field in protected
+                }
+            )
+
+        return attrs
 
 
 class FarmerListSerializer(serializers.ModelSerializer):
     """
-    Farmer List Serializer
+    Supplier List Serializer
     """
 
     full_name = serializers.CharField(
@@ -86,7 +106,7 @@ class FarmerListSerializer(serializers.ModelSerializer):
 
 class FarmerDetailSerializer(serializers.ModelSerializer):
     """
-    Farmer Detail Serializer
+    Supplier Detail Serializer
     """
 
     full_name = serializers.CharField(

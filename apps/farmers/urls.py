@@ -1,19 +1,31 @@
 from django.urls import path
 
 from .views import (
-    FarmerListCreateView,
-    FarmerDetailView,
+    SupplierApplicationView,
+    FarmerListView,
+    MySupplierProfileView,
+    SupplierStatusView,
 )
 
 urlpatterns = [
     path(
-        "",
-        FarmerListCreateView.as_view(),
-        name="farmer-list-create",
+        "apply/",
+        SupplierApplicationView.as_view(),
+        name="supplier-apply",
     ),
     path(
-        "<uuid:pk>/",
-        FarmerDetailView.as_view(),
-        name="farmer-detail",
+        "me/",
+        MySupplierProfileView.as_view(),
+        name="supplier-profile",
+    ),
+    path(
+        "status/",
+        SupplierStatusView.as_view(),
+        name="supplier-status",
+    ),
+    path(
+        "",
+        FarmerListView.as_view(),
+        name="farmer-list",
     ),
 ]
