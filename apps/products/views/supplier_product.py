@@ -1,7 +1,7 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
 
+from apps.core.permissions import IsFarmer
 from apps.products.models import SupplierProduct
 from apps.products.serializers import (
     SupplierProductCreateSerializer,
@@ -15,10 +15,10 @@ from apps.products.services import SupplierProductService
 @extend_schema(tags=["Supplier Products"])
 class SupplierProductListCreateView(generics.ListCreateAPIView):
     """
-    List and create supplier products.
+    List and create supplier product listings.
     """
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsFarmer]
 
     def get_queryset(self):
         return (
@@ -26,6 +26,7 @@ class SupplierProductListCreateView(generics.ListCreateAPIView):
                 "product",
                 "product__category",
                 "farmer",
+                "farmer__user",
             )
             .filter(farmer__user=self.request.user)
             .order_by("-created_at")
@@ -34,10 +35,11 @@ class SupplierProductListCreateView(generics.ListCreateAPIView):
     def get_serializer_class(self):
         if self.request.method == "POST":
             return SupplierProductCreateSerializer
+
         return SupplierProductListSerializer
 
     def perform_create(self, serializer):
-        SupplierProductService.create_listing(
+        serializer.instance = SupplierProductService.create_listing(
             farmer=self.request.user.farmer,
             validated_data=serializer.validated_data,
         )
@@ -46,10 +48,10 @@ class SupplierProductListCreateView(generics.ListCreateAPIView):
 @extend_schema(tags=["Supplier Products"])
 class SupplierProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
-    Retrieve, update and delete a supplier product.
+    Retrieve, update and delete a supplier product listing.
     """
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsFarmer]
 
     def get_queryset(self):
         return (
@@ -57,6 +59,7 @@ class SupplierProductDetailView(generics.RetrieveUpdateDestroyAPIView):
                 "product",
                 "product__category",
                 "farmer",
+                "farmer__user",
             )
             .filter(farmer__user=self.request.user)
         )
@@ -64,6 +67,7 @@ class SupplierProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_serializer_class(self):
         if self.request.method in ("PUT", "PATCH"):
             return SupplierProductUpdateSerializer
+
         return SupplierProductDetailSerializer
 
     def perform_update(self, serializer):
@@ -71,3 +75,6 @@ class SupplierProductDetailView(generics.RetrieveUpdateDestroyAPIView):
             listing=self.get_object(),
             validated_data=serializer.validated_data,
         )
+
+    def perform_destroy(self, instance):
+        instance.delete()

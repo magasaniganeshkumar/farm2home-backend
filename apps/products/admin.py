@@ -28,9 +28,18 @@ class CategoryAdmin(admin.ModelAdmin):
         "name",
     )
 
-    prepopulated_fields = {
-        "slug": ("name",),
-    }
+    readonly_fields = (
+        "code",
+        "slug",
+        "level",
+        "created_at",
+        "updated_at",
+    )
+
+    exclude = (
+        "is_deleted",
+        "deleted_at",
+    )
 
     ordering = (
         "display_order",
@@ -62,9 +71,17 @@ class ProductAdmin(admin.ModelAdmin):
         "name",
     )
 
-    prepopulated_fields = {
-        "slug": ("name",),
-    }
+    readonly_fields = (
+        "product_code",
+        "slug",
+        "created_at",
+        "updated_at",
+    )
+
+    exclude = (
+        "is_deleted",
+        "deleted_at",
+    )
 
     autocomplete_fields = (
         "category",
@@ -98,6 +115,19 @@ class SupplierProductAdmin(admin.ModelAdmin):
         "listing_code",
         "product__name",
         "farmer__user__full_name",
+    )
+
+    readonly_fields = (
+        "listing_code",
+        "approved_at",
+        "rejected_at",
+        "created_at",
+        "updated_at",
+    )
+
+    exclude = (
+        "is_deleted",
+        "deleted_at",
     )
 
     autocomplete_fields = (

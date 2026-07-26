@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('verification_status', models.CharField(choices=[('PENDING', 'Pending Verification'), ('VERIFIED', 'Verified'), ('REJECTED', 'Rejected')], default='PENDING', max_length=20)),
                 ('verified_at', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='farmer_profile', to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='farmer', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'db_table': 'farmers',

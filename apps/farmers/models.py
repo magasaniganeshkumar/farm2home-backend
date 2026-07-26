@@ -43,7 +43,7 @@ class Farmer(BaseModel):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="farmer_profile",
+        related_name="farmer",
     )
 
     farmer_code = models.CharField(

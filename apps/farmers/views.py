@@ -79,7 +79,7 @@ class MySupplierProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         try:
-            return self.request.user.farmer_profile
+            return self.request.user.farmer
         except Farmer.DoesNotExist:
             raise NotFound(
                 "You have not applied to become a supplier yet."
@@ -108,7 +108,7 @@ class SupplierStatusView(generics.GenericAPIView):
 
     def get(self, request):
         try:
-            farmer = request.user.farmer_profile
+            farmer = request.user.farmer
         except Farmer.DoesNotExist:
             return Response(
                 {

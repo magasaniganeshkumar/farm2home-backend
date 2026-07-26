@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.text import slugify
 
 from apps.core.models import BaseModel
+from apps.infrastructure.services.code_service import CodeService
 
 
 class Category(BaseModel):
@@ -18,9 +19,10 @@ class Category(BaseModel):
     """
 
     code = models.CharField(
-        max_length=10,
+        max_length=20,
         unique=True,
-        help_text="Unique category code. Example: VEG, FRT, RICE.",
+        blank=True,
+        editable=False,
     )
 
     name = models.CharField(
@@ -62,7 +64,6 @@ class Category(BaseModel):
     level = models.PositiveSmallIntegerField(
         default=0,
         editable=False,
-        help_text="Category hierarchy level.",
     )
 
     display_order = models.PositiveIntegerField(
@@ -76,12 +77,10 @@ class Category(BaseModel):
 
     is_active = models.BooleanField(
         default=True,
-        help_text="Whether this category is active.",
     )
 
     is_visible = models.BooleanField(
         default=True,
-        help_text="Whether this category is visible to customers.",
     )
 
     seo_title = models.CharField(
@@ -119,18 +118,15 @@ class Category(BaseModel):
         ]
 
     def clean(self):
-        """
-        Prevent invalid hierarchy.
-        """
         if self.parent == self:
             raise ValidationError(
                 "A category cannot be its own parent."
             )
 
     def save(self, *args, **kwargs):
-        """
-        Auto-generate slug and category level.
-        """
+        if not self.code:
+            self.code = CodeService.next_category_code()
+
         if not self.slug:
             self.slug = slugify(self.name)
 

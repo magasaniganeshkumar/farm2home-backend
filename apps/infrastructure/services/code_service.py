@@ -26,6 +26,12 @@ class CodeService:
         return f"{sequence.prefix}-{sequence.last_number:06d}"
 
     @staticmethod
+    def next_category_code():
+        return CodeService.next(
+            BusinessSequence.Entity.CATEGORY
+        )
+
+    @staticmethod
     def next_product_code():
         return CodeService.next(
             BusinessSequence.Entity.PRODUCT
@@ -38,15 +44,15 @@ class CodeService:
         )
 
     @staticmethod
-    def next_order_code():
-        return CodeService.next(
-            BusinessSequence.Entity.ORDER
-        )
-
-    @staticmethod
     def next_listing_code():
         return CodeService.next(
             BusinessSequence.Entity.LISTING
+        )
+
+    @staticmethod
+    def next_order_code():
+        return CodeService.next(
+            BusinessSequence.Entity.ORDER
         )
 
     @staticmethod
