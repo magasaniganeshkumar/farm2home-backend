@@ -97,7 +97,10 @@ class Farmer(BaseModel):
     )
 
     class Meta:
+
         db_table = "farmers"
+        verbose_name = "Farmer"
+        verbose_name_plural = "Farmers"
         ordering = ["farmer_code"]
 
     def save(self, *args, **kwargs):

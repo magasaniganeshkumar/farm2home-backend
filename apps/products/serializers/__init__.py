@@ -7,6 +7,10 @@ from .product import (
     ProductDetailSerializer,
 )
 
+from .marketplace import (
+    MarketplaceProductListSerializer,
+)
+
 from .supplier_product import (
     SupplierProductCreateSerializer,
     SupplierProductDetailSerializer,
@@ -23,4 +27,5 @@ __all__ = [
     "SupplierProductUpdateSerializer",
     "SupplierProductListSerializer",
     "SupplierProductDetailSerializer",
+    "MarketplaceProductListSerializer",
 ]

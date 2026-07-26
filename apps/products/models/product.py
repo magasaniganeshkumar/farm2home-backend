@@ -111,6 +111,9 @@ class Product(BaseModel):
     class Meta:
         db_table = "products"
 
+        verbose_name = "Product"
+        verbose_name_plural = "Products"
+
         ordering = [
             "name",
         ]

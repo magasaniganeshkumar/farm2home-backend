@@ -95,6 +95,9 @@ class Category(BaseModel):
     class Meta:
         db_table = "product_categories"
 
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+
         ordering = [
             "display_order",
             "name",

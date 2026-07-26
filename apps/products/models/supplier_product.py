@@ -138,6 +138,9 @@ class SupplierProduct(BaseModel):
     class Meta:
         db_table = "supplier_products"
 
+        verbose_name = "Supplier Product"
+        verbose_name_plural = "Supplier Products"
+
         ordering = [
             "-created_at",
         ]
