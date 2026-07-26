@@ -1,8 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
-from apps.infrastructure.models import BusinessSequence
-from apps.infrastructure.services.code_service import CodeService
+
 from apps.core.models import BaseModel
 
 
@@ -21,7 +20,7 @@ class Category(BaseModel):
     code = models.CharField(
         max_length=10,
         unique=True,
-        help_text="Unique category code. Example: VEG, FRT, RIC.",
+        help_text="Unique category code. Example: VEG, FRT, RICE.",
     )
 
     name = models.CharField(
@@ -130,7 +129,7 @@ class Category(BaseModel):
 
     def save(self, *args, **kwargs):
         """
-        Auto-generate slug and level.
+        Auto-generate slug and category level.
         """
         if not self.slug:
             self.slug = slugify(self.name)
@@ -146,19 +145,3 @@ class Category(BaseModel):
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        if not self.code:
-            self.code = CodeService.next_category_code()
-
-        if not self.slug:
-            self.generate_slug()
-
-        if self.parent:
-            self.level = self.parent.level + 1
-        else:
-            self.level = 0
-
-        self.full_clean()
-
-        super().save(*args, **kwargs)

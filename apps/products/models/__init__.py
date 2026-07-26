@@ -1,20 +1,14 @@
 from .category import Category
-
-__all__ = [
-    "Category",
-]
+from .product import Product
 
 
-
-# from .master_product import MasterProduct
 # from .supplier_product import SupplierProduct
 # from .product_image import ProductImage
 # from .product_availability import ProductAvailability
+# from .product_attribute import ProductAttribute
+# from .product_review import ProductReview
 
-# __all__ = [
-#     "Category",
-#     "MasterProduct",
-#     "SupplierProduct",
-#     "ProductImage",
-#     "ProductAvailability",
-# ]
+__all__ = [
+    "Category",
+    "Product",
+]

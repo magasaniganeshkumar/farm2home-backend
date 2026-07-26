@@ -1,7 +1,34 @@
 from django.db import models
 
 
+class ProductType(models.TextChoices):
+    """
+    Product classification.
+    """
+
+    VEGETABLE = "VEGETABLE", "Vegetable"
+    FRUIT = "FRUIT", "Fruit"
+    GRAIN = "GRAIN", "Grain"
+    PULSE = "PULSE", "Pulse"
+    DAIRY = "DAIRY", "Dairy"
+    FLOWER = "FLOWER", "Flower"
+    HERB = "HERB", "Herb"
+    SPICE = "SPICE", "Spice"
+    OIL_SEED = "OIL_SEED", "Oil Seed"
+    DRY_FRUIT = "DRY_FRUIT", "Dry Fruit"
+    HONEY = "HONEY", "Honey"
+    EGG = "EGG", "Egg"
+    FISH = "FISH", "Fish"
+    MEAT = "MEAT", "Meat"
+    PLANT = "PLANT", "Plant"
+    OTHER = "OTHER", "Other"
+
+
 class ProductUnit(models.TextChoices):
+    """
+    Default selling unit.
+    """
+
     KG = "KG", "Kilogram"
     GRAM = "GRAM", "Gram"
     QUINTAL = "QUINTAL", "Quintal"
@@ -11,6 +38,7 @@ class ProductUnit(models.TextChoices):
     ML = "ML", "Milliliter"
 
     PIECE = "PIECE", "Piece"
+    UNIT = "UNIT", "Unit"
     DOZEN = "DOZEN", "Dozen"
     BUNCH = "BUNCH", "Bunch"
 
@@ -20,9 +48,14 @@ class ProductUnit(models.TextChoices):
     TRAY = "TRAY", "Tray"
     BOTTLE = "BOTTLE", "Bottle"
     SACK = "SACK", "Sack"
+    CRATE = "CRATE", "Crate"
 
 
 class ProductSeason(models.TextChoices):
+    """
+    Product availability season.
+    """
+
     YEAR_ROUND = "YEAR_ROUND", "Year Round"
     SUMMER = "SUMMER", "Summer"
     WINTER = "WINTER", "Winter"
@@ -31,23 +64,54 @@ class ProductSeason(models.TextChoices):
 
 
 class StorageType(models.TextChoices):
-    ROOM_TEMPERATURE = "ROOM_TEMPERATURE", "Room Temperature"
+    """
+    Storage requirement.
+    """
+
+    AMBIENT = "AMBIENT", "Ambient"
     REFRIGERATED = "REFRIGERATED", "Refrigerated"
     FROZEN = "FROZEN", "Frozen"
 
 
-class ProductStatus(models.TextChoices):
-    DRAFT = "DRAFT", "Draft"
-    PENDING_REVIEW = "PENDING_REVIEW", "Pending Review"
-    APPROVED = "APPROVED", "Approved"
-    COMING_SOON = "COMING_SOON", "Coming Soon"
-    LIVE = "LIVE", "Live"
-    OUT_OF_STOCK = "OUT_OF_STOCK", "Out of Stock"
-    DISABLED = "DISABLED", "Disabled"
+class CatalogStatus(models.TextChoices):
+    """
+    Farm2Home catalog status.
+    """
+
+    ACTIVE = "ACTIVE", "Active"
+    INACTIVE = "INACTIVE", "Inactive"
     ARCHIVED = "ARCHIVED", "Archived"
 
 
-class ProductImageType(models.TextChoices):
+class SupplierProductStatus(models.TextChoices):
+    """
+    Supplier product lifecycle.
+    """
+
+    DRAFT = "DRAFT", "Draft"
+    SUBMITTED = "SUBMITTED", "Submitted"
+    PENDING_REVIEW = "PENDING_REVIEW", "Pending Review"
+    APPROVED = "APPROVED", "Approved"
+    REJECTED = "REJECTED", "Rejected"
+    LIVE = "LIVE", "Live"
+    OUT_OF_STOCK = "OUT_OF_STOCK", "Out of Stock"
+    ARCHIVED = "ARCHIVED", "Archived"
+
+
+class CatalogImageType(models.TextChoices):
+    """
+    Catalog product images.
+    """
+
+    PRIMARY = "PRIMARY", "Primary"
+    GALLERY = "GALLERY", "Gallery"
+
+
+class SupplierImageType(models.TextChoices):
+    """
+    Supplier uploaded images.
+    """
+
     PRIMARY = "PRIMARY", "Primary"
     GALLERY = "GALLERY", "Gallery"
     FARM = "FARM", "Farm"
