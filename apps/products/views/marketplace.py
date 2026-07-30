@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
-
+from apps.products.filters import MarketplaceProductFilter
 
 from apps.products.choices import SupplierProductStatus
 from apps.products.models import SupplierProduct
@@ -27,6 +27,8 @@ class MarketplaceProductListView(generics.ListAPIView):
         DjangoFilterBackend,
         filters.OrderingFilter,
     ]
+
+    filterset_class = MarketplaceProductFilter
 
     search_fields = [
         "product__name",
